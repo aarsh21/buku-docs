@@ -1,7 +1,11 @@
 "use client";
 
+import { TaskItem, TaskList } from "@tiptap/extension-list";
 import { useEditor, EditorContent } from "@tiptap/react";
 import StarterKit from "@tiptap/starter-kit";
+import { TableKit } from "@tiptap/extension-table";
+import Image from "@tiptap/extension-image";
+import ImageResize from "tiptap-extension-resize-image";
 
 export const Editor = () => {
   const editor = useEditor({
@@ -12,8 +16,30 @@ export const Editor = () => {
           "focus:outline-none print:border-0 bg-white border border-[#c7c7c7] flex flex-col min-h-[1054px] w-[816px] pt-10 pr-14 pb-10 cursor-text",
       },
     },
-    extensions: [StarterKit],
-    content: "<p>Hello World! 🌎</p>",
+    extensions: [
+      StarterKit,
+      ImageResize,
+      TaskItem.configure({
+        nested: true,
+      }),
+      TaskList,
+      TableKit,
+      Image,
+    ],
+    content: `<table>
+          <tbody>
+            <tr>
+              <th>Name</th>
+              <th colspan="3">Description</th>
+            </tr>
+            <tr>
+              <td>Cyndi Lauper</td>
+              <td>Singer</td>
+              <td>Songwriter</td>
+              <td>Actress</td>
+            </tr>
+          </tbody>
+        </table>`,
     // Don't render immediately on the server to avoid SSR issues
     immediatelyRender: false,
   });
